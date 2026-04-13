@@ -55,6 +55,16 @@ export default function RespondentView() {
         form_id: form.id,
         answers
       });
+      
+      if (form.settings.admin_email) {
+        await api.sendNotificationEmail(
+          form.settings.admin_email, 
+          form.title, 
+          answers, 
+          questions
+        );
+      }
+      
       setSubmitted(true);
     } catch (e) {
       console.error(e);

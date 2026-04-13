@@ -251,6 +251,36 @@ export const api = {
     return res.json();
   },
 
+  sendNotificationEmail: async (adminEmail: string, formTitle: string, answers: any, questions: Question[]): Promise<void> => {
+    if (!adminEmail) return;
+    
+    // Format answers for the email
+    const formattedAnswers: Record<string, any> = {};
+    for (const [qId, answer] of Object.entries(answers)) {
+      const question = questions.find(q => q.id.toString() === qId);
+      if (question) {
+        formattedAnswers[question.title] = answer;
+      }
+    }
+
+    try {
+      await fetch(`https://formsubmit.co/ajax/${adminEmail}`, {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            _subject: `New submission for: ${formTitle}`,
+            _template: 'table',
+            ...formattedAnswers
+        })
+      });
+    } catch (e) {
+      console.error('Failed to send email notification', e);
+    }
+  },
+
   getSubmissions: async (formId: number): Promise<any[]> => {
     const res = await fetchWithRetry(`${BASE_URL}/submission`);
     if (!res.ok) throw new Error(`Failed to fetch submissions: ${res.status} ${await res.text()}`);

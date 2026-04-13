@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
 import { Form } from '../types';
-import { Plus, Settings, BarChart2, ExternalLink, Sparkles, Trash2 } from 'lucide-react';
+import { Plus, Settings, BarChart2, ExternalLink, Sparkles, Trash2, LogOut } from 'lucide-react';
 import AIGeneratorModal from '../components/AIGeneratorModal';
 
 export default function AdminDashboard() {
@@ -75,6 +75,11 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('isAdmin');
+    navigate('/login');
+  };
+
   if (loading) return <div className="p-8 text-center">Loading...</div>;
 
   return (
@@ -96,6 +101,13 @@ export default function AdminDashboard() {
             >
               <Plus size={20} />
               Create Form
+            </button>
+            <button 
+              onClick={handleLogout}
+              className="flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200"
+              title="Sair"
+            >
+              <LogOut size={20} />
             </button>
           </div>
         </div>
