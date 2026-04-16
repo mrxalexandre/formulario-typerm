@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { api } from '../services/api';
 import { Form, Question } from '../types';
@@ -11,8 +11,13 @@ export default function RespondentView() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, any>>({});
+  const answersRef = useRef<Record<number, any>>({});
   const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    answersRef.current = answers;
+  }, [answers]);
 
   useEffect(() => {
     if (id) {
@@ -32,12 +37,17 @@ export default function RespondentView() {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = (currentAnswers?: Record<number, any> | React.MouseEvent | React.KeyboardEvent) => {
+    // If currentAnswers is an event object, ignore it
+    const finalAnswers = (currentAnswers && !('nativeEvent' in currentAnswers)) 
+      ? currentAnswers 
+      : answersRef.current;
+
     if (currentIndex < questions.length - 1) {
       setDirection(1);
       setCurrentIndex(prev => prev + 1);
     } else {
-      handleSubmit();
+      handleSubmit(finalAnswers as Record<number, any>);
     }
   };
 
@@ -48,19 +58,19 @@ export default function RespondentView() {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (submitAnswers: Record<number, any>) => {
     if (!form) return;
     try {
       await api.submitForm({
         form_id: form.id,
-        answers
+        answers: submitAnswers
       });
       
       if (form.settings.admin_email) {
         await api.sendNotificationEmail(
           form.settings.admin_email, 
           form.title, 
-          answers, 
+          submitAnswers, 
           questions
         );
       }
@@ -73,7 +83,10 @@ export default function RespondentView() {
   };
 
   const handleAnswer = (questionId: number, value: any) => {
-    setAnswers({ ...answers, [questionId]: value });
+    const newAnswers = { ...answersRef.current, [questionId]: value };
+    answersRef.current = newAnswers;
+    setAnswers(newAnswers);
+    return newAnswers;
   };
 
   if (!form || questions.length === 0) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
@@ -210,9 +223,9 @@ export default function RespondentView() {
                       <button
                         key={idx}
                         onClick={() => {
-                          handleAnswer(currentQ.id, opt);
+                          const newAnswers = handleAnswer(currentQ.id, opt);
                           if (form.settings.auto_advance) {
-                            setTimeout(handleNext, 400);
+                            setTimeout(() => handleNext(newAnswers), 400);
                           }
                         }}
                         className={`w-full text-left px-6 py-4 rounded-xl border-2 transition-all flex items-center gap-4 text-lg md:text-xl
@@ -239,9 +252,9 @@ export default function RespondentView() {
                       <button
                         key={idx}
                         onClick={() => {
-                          handleAnswer(currentQ.id, opt === 'Yes');
+                          const newAnswers = handleAnswer(currentQ.id, opt === 'Yes');
                           if (form.settings.auto_advance) {
-                            setTimeout(handleNext, 400);
+                            setTimeout(() => handleNext(newAnswers), 400);
                           }
                         }}
                         className={`flex-1 px-6 py-8 rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-4 text-2xl

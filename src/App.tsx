@@ -9,6 +9,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import FormEditor from './pages/FormEditor';
 import RespondentView from './pages/RespondentView';
 import ResponsesDashboard from './pages/ResponsesDashboard';
+import AnalyticsDashboard from './pages/AnalyticsDashboard';
 import Login from './pages/Login';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/admin/analytics" element={<ProtectedRoute><AnalyticsDashboard /></ProtectedRoute>} />
         <Route path="/admin/form/:id" element={<ProtectedRoute><FormEditor /></ProtectedRoute>} />
         <Route path="/admin/form/:id/responses" element={<ProtectedRoute><ResponsesDashboard /></ProtectedRoute>} />
         <Route path="/f/:id" element={<RespondentView />} />

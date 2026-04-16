@@ -88,6 +88,13 @@ export default function AdminDashboard() {
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">My Forms</h1>
           <div className="flex gap-3">
+            <Link 
+              to="/admin/analytics"
+              className="flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200 font-medium"
+            >
+              <BarChart2 size={20} />
+              Analytics
+            </Link>
             <button 
               onClick={() => setIsAIModalOpen(true)}
               className="flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-100 transition-colors font-medium border border-blue-200"
