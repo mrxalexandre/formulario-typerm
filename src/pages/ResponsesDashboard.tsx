@@ -111,8 +111,8 @@ export default function ResponsesDashboard() {
         {submissions.length === 0 ? (
           <div className="bg-white p-12 rounded-xl shadow-sm border border-gray-100 text-center">
             <BarChart size={48} className="mx-auto text-gray-300 mb-4" />
-            <h3 className="text-xl font-medium text-gray-900 mb-2">No responses yet</h3>
-            <p className="text-gray-500">Share your form to start collecting responses.</p>
+            <h3 className="text-xl font-medium text-gray-900 mb-2">Sem respostas ainda</h3>
+            <p className="text-gray-500">Compartilhe seu formulário para começar a coletar respostas.</p>
           </div>
         ) : (
           <div className="space-y-6">
@@ -129,10 +129,10 @@ export default function ResponsesDashboard() {
                   <h3 className="text-lg font-semibold text-gray-900 mb-1">
                     {idx + 1}. {q.title}
                   </h3>
-                  <p className="text-sm text-gray-500 mb-4">{totalAnswers} responses</p>
+                  <p className="text-sm text-gray-500 mb-4">{totalAnswers} respostas</p>
 
                   {totalAnswers === 0 ? (
-                    <p className="text-gray-400 italic">No answers for this question.</p>
+                    <p className="text-gray-400 italic">Nenhuma resposta para esta pergunta.</p>
                   ) : (
                     <>
                       {(q.type === 'multiple_choice' || q.type === 'boolean') && (

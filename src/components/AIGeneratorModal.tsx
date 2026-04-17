@@ -49,7 +49,7 @@ export default function AIGeneratorModal({ isOpen, onClose }: AIGeneratorModalPr
         <div className="flex items-center justify-between p-4 border-b border-gray-100">
           <div className="flex items-center gap-2 text-blue-600">
             <Sparkles size={20} />
-            <h2 className="font-semibold text-gray-900">Generate Form with AI</h2>
+            <h2 className="font-semibold text-gray-900">Gerar Formulário com IA</h2>
           </div>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
             <X size={20} />
@@ -58,13 +58,13 @@ export default function AIGeneratorModal({ isOpen, onClose }: AIGeneratorModalPr
         
         <div className="p-6 space-y-4">
           <p className="text-sm text-gray-600">
-            Describe the form you want to create. The AI will automatically generate the title, description, and all the necessary questions.
+            Descreva o formulário que você deseja criar. A Inteligência Artificial irá gerar automaticamente o título, descrição e todas as perguntas necessárias.
           </p>
           
           <textarea
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="e.g., Create a customer satisfaction survey for a coffee shop with 5 questions including a rating and open feedback."
+            placeholder="ex: Crie uma pesquisa de satisfação para uma cafeteria com 5 perguntas, incluindo avaliação e feedback aberto."
             className="w-full h-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
             disabled={isGenerating}
           />
@@ -76,7 +76,7 @@ export default function AIGeneratorModal({ isOpen, onClose }: AIGeneratorModalPr
             disabled={isGenerating}
             className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50"
           >
-            Cancel
+            Cancelar
           </button>
           <button 
             onClick={handleGenerate}
@@ -86,12 +86,12 @@ export default function AIGeneratorModal({ isOpen, onClose }: AIGeneratorModalPr
             {isGenerating ? (
               <>
                 <Loader2 size={16} className="animate-spin" />
-                Generating...
+                Gerando...
               </>
             ) : (
               <>
                 <Sparkles size={16} />
-                Generate
+                Gerar
               </>
             )}
           </button>

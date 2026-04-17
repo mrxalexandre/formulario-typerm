@@ -28,6 +28,7 @@ export default function App() {
         <Route path="/admin/form/:id" element={<ProtectedRoute><FormEditor /></ProtectedRoute>} />
         <Route path="/admin/form/:id/responses" element={<ProtectedRoute><ResponsesDashboard /></ProtectedRoute>} />
         <Route path="/f/:id" element={<RespondentView />} />
+        <Route path="/formulario/:id" element={<RespondentView />} />
       </Routes>
     </BrowserRouter>
   );

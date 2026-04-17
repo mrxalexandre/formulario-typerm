@@ -134,7 +134,7 @@ export default function AdminDashboard() {
               <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
                 <span className="flex items-center gap-1">
                   <BarChart2 size={16} />
-                  {form.responses_count || 0} responses
+                  {form.responses_count || 0} respostas
                 </span>
               </div>
               <div className="flex gap-2">
@@ -143,21 +143,21 @@ export default function AdminDashboard() {
                   className="flex-1 flex justify-center items-center gap-2 bg-gray-100 text-gray-700 px-3 py-2 rounded-md hover:bg-gray-200 transition-colors"
                 >
                   <Settings size={16} />
-                  Edit
+                  Editar
                 </Link>
                 <Link 
                   to={`/admin/form/${form.id}/responses`}
                   className="flex-1 flex justify-center items-center gap-2 bg-blue-50 text-blue-700 px-3 py-2 rounded-md hover:bg-blue-100 transition-colors"
                 >
                   <BarChart2 size={16} />
-                  Results
+                  Resultados
                 </Link>
                 <Link 
-                  to={`/f/${form.id}`}
+                  to={`/formulario/${form.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center px-3 py-2 bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200 transition-colors"
-                  title="View Form"
+                  title="Ver Formulário"
                 >
                   <ExternalLink size={16} />
                 </Link>
@@ -165,7 +165,7 @@ export default function AdminDashboard() {
                   onClick={() => handleDelete(form.id)}
                   disabled={isDeleting === form.id}
                   className="flex items-center justify-center px-3 py-2 bg-red-50 text-red-600 rounded-md hover:bg-red-100 transition-colors disabled:opacity-50"
-                  title="Delete Form"
+                  title="Excluir Formulário"
                 >
                   <Trash2 size={16} />
                 </button>
@@ -174,7 +174,7 @@ export default function AdminDashboard() {
           ))}
           {forms.length === 0 && (
             <div className="col-span-full text-center py-12 text-gray-500 bg-white rounded-xl border border-dashed border-gray-300">
-              No forms yet. Create one to get started!
+              Nenhum formulário ainda. Crie um para começar!
             </div>
           )}
         </div>
@@ -189,7 +189,7 @@ export default function AdminDashboard() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden flex flex-col">
             <div className="flex items-center justify-between p-4 border-b border-gray-100">
-              <h2 className="font-semibold text-gray-900">Create New Form</h2>
+              <h2 className="font-semibold text-gray-900">Novo Formulário</h2>
               <button 
                 onClick={() => {
                   setIsCreateModalOpen(false);
@@ -203,13 +203,13 @@ export default function AdminDashboard() {
             
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Form Title</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Título do Formulário</label>
                 <input
                   type="text"
                   value={newFormTitle}
                   onChange={(e) => setNewFormTitle(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleCreate()}
-                  placeholder="e.g., Customer Feedback"
+                  placeholder="ex: Pesquisa de Clima Organizacional"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                   autoFocus
                   disabled={isCreating}
@@ -226,14 +226,14 @@ export default function AdminDashboard() {
                 disabled={isCreating}
                 className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50"
               >
-                Cancel
+                Cancelar
               </button>
               <button 
                 onClick={handleCreate}
                 disabled={isCreating || !newFormTitle.trim()}
                 className="px-4 py-2 text-sm font-medium text-white bg-black hover:bg-gray-800 rounded-lg transition-colors disabled:opacity-50"
               >
-                {isCreating ? 'Creating...' : 'Create Form'}
+                {isCreating ? 'Criando...' : 'Criar Formulário'}
               </button>
             </div>
           </div>

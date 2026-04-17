@@ -145,8 +145,8 @@ export default function RespondentView() {
           <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
             <Check size={40} />
           </div>
-          <h1 className="text-4xl font-bold mb-4">Thank you!</h1>
-          <p className="text-lg opacity-80">Your response has been recorded.</p>
+          <h1 className="text-4xl font-bold mb-4">Obrigado!</h1>
+          <p className="text-lg opacity-80">Sua resposta foi enviada com sucesso.</p>
         </motion.div>
       </div>
     );
@@ -206,7 +206,7 @@ export default function RespondentView() {
                   onChange={e => handleAnswer(currentQ.id, e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleNext()}
                   className="w-full text-2xl md:text-4xl bg-transparent border-0 border-b-2 border-white/30 focus:border-white focus:ring-0 p-0 pb-2 placeholder-white/20 transition-colors outline-none"
-                  placeholder="Type your answer here..."
+                  placeholder="Digite sua resposta aqui..."
                   autoFocus
                 />
               )}
@@ -216,7 +216,7 @@ export default function RespondentView() {
                   value={answers[currentQ.id] || ''}
                   onChange={e => handleAnswer(currentQ.id, e.target.value)}
                   className="w-full text-xl md:text-2xl bg-transparent border-0 border-b-2 border-white/30 focus:border-white focus:ring-0 p-0 pb-2 placeholder-white/20 transition-colors min-h-[100px] resize-none outline-none"
-                  placeholder="Type your answer here..."
+                  placeholder="Digite sua resposta aqui..."
                   autoFocus
                 />
               )}
@@ -252,13 +252,14 @@ export default function RespondentView() {
 
               {currentQ.type === 'boolean' && (
                 <div className="flex gap-4">
-                  {['Yes', 'No'].map((opt, idx) => {
-                    const isSelected = answers[currentQ.id] === (opt === 'Yes');
+                  {['Sim', 'Não'].map((opt, idx) => {
+                    const rawOpt = opt === 'Sim' ? 'Yes' : 'No';
+                    const isSelected = answers[currentQ.id] === (rawOpt === 'Yes');
                     return (
                       <button
                         key={idx}
                         onClick={() => {
-                          const newAnswers = handleAnswer(currentQ.id, opt === 'Yes');
+                          const newAnswers = handleAnswer(currentQ.id, rawOpt === 'Yes');
                           if (form.settings.auto_advance) {
                             setTimeout(() => handleNext(newAnswers), 400);
                           }
@@ -287,10 +288,10 @@ export default function RespondentView() {
                 className="px-8 py-3 rounded-lg font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ backgroundColor: form.settings.primary_color, color: '#fff' }}
               >
-                {currentIndex === questions.length - 1 ? 'Submit' : 'OK'}
+                {currentIndex === questions.length - 1 ? 'Enviar' : 'OK'}
               </button>
               <span className="text-sm opacity-50 hidden md:inline-block">
-                press <strong>Enter ↵</strong>
+                pressione <strong>Enter ↵</strong>
               </span>
             </div>
           </motion.div>
