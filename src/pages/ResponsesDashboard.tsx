@@ -12,6 +12,7 @@ export default function ResponsesDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = 'Resultados';
     if (id) {
       loadData(parseInt(id));
     }

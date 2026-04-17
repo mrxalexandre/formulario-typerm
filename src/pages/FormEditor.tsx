@@ -19,6 +19,12 @@ export default function FormEditor() {
     }
   }, [id]);
 
+  useEffect(() => {
+    if (form) {
+      document.title = `Editor - ${form.title}`;
+    }
+  }, [form]);
+
   const loadData = async (formId: number) => {
     try {
       const [formData, questionsData] = await Promise.all([

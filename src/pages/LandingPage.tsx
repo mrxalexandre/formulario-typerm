@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, Layout, BarChart3, ArrowRight, ShieldCheck } from 'lucide-react';
 
 export default function LandingPage() {
+  useEffect(() => {
+    document.title = 'Home';
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans flex flex-col">
       {/* Navigation Bar */}
@@ -20,13 +24,13 @@ export default function LandingPage() {
                 to="/admin" 
                 className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
               >
-                Admin Area
+                Área Administrativa
               </Link>
               <Link 
                 to="/admin" 
                 className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-black hover:bg-gray-800 transition-colors"
               >
-                Go to Dashboard
+                Acessar Painel
               </Link>
             </div>
           </div>
@@ -38,20 +42,20 @@ export default function LandingPage() {
         <div className="relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 text-center">
             <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-6">
-              Create beautiful forms <br className="hidden md:block" />
+              Crie formulários incríveis <br className="hidden md:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                in seconds, not hours.
+                em segundos, não em horas.
               </span>
             </h1>
             <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500 mb-10">
-              The modern, AI-powered form builder that helps you collect data, engage your audience, and analyze results effortlessly.
+              O construtor de formulários moderno, com inteligência artificial, que ajuda você a coletar dados, engajar seu público e analisar resultados sem esforço.
             </p>
             <div className="flex justify-center gap-4">
               <Link 
                 to="/admin" 
                 className="inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl text-white bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all"
               >
-                Start Building for Free
+                Comece a Criar (Grátis)
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </div>
@@ -62,7 +66,7 @@ export default function LandingPage() {
         <div className="bg-white py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-gray-900">Everything you need to build perfect forms</h2>
+              <h2 className="text-3xl font-bold text-gray-900">Tudo o que você precisa para criar formulários perfeitos</h2>
             </div>
             
             <div className="grid md:grid-cols-3 gap-12">
@@ -71,9 +75,9 @@ export default function LandingPage() {
                 <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6">
                   <Sparkles className="w-8 h-8 text-blue-600" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">AI-Powered Generation</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Gerado por IA</h3>
                 <p className="text-gray-500">
-                  Just describe what you need, and our AI will generate a complete, ready-to-use form in seconds.
+                  Apenas descreva o que você precisa, e nossa inteligência artificial irá gerar um formulário completo e pronto para uso em segundos.
                 </p>
               </div>
 
@@ -82,9 +86,9 @@ export default function LandingPage() {
                 <div className="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mb-6">
                   <Layout className="w-8 h-8 text-purple-600" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Beautiful Design</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Design Impressionante</h3>
                 <p className="text-gray-500">
-                  Customize colors, gradients, and background images to match your brand perfectly.
+                  Personalize cores, gradientes e imagens de fundo para combinar a identidade do formulário perfeitamente com a sua marca.
                 </p>
               </div>
 
@@ -93,9 +97,9 @@ export default function LandingPage() {
                 <div className="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center mb-6">
                   <BarChart3 className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Instant Analytics</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Analytics Instantâneo</h3>
                 <p className="text-gray-500">
-                  View responses in real-time and analyze your data with built-in dashboards.
+                  Veja as respostas chegando em tempo real e analise seus dados com painéis integrados avançados.
                 </p>
               </div>
             </div>
@@ -111,7 +115,7 @@ export default function LandingPage() {
             <span className="text-gray-500 font-medium">FormFlow</span>
           </div>
           <p className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} FormFlow. All rights reserved.
+            © {new Date().getFullYear()} FormFlow. Todos os direitos reservados.
           </p>
         </div>
       </footer>

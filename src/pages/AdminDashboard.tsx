@@ -16,6 +16,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = 'ADM';
     loadForms();
   }, []);
 
@@ -86,8 +87,15 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-gray-50 p-8 font-sans">
       <div className="max-w-5xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">My Forms</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Meus Formulários</h1>
           <div className="flex gap-3">
+            <Link 
+              to="/"
+              className="flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200 font-medium"
+            >
+              <ExternalLink size={20} />
+              Home Page
+            </Link>
             <Link 
               to="/admin/analytics"
               className="flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200 font-medium"
@@ -100,14 +108,14 @@ export default function AdminDashboard() {
               className="flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-100 transition-colors font-medium border border-blue-200"
             >
               <Sparkles size={20} />
-              Generate with AI
+              Gerar com IA
             </button>
             <button 
               onClick={() => setIsCreateModalOpen(true)}
               className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
             >
               <Plus size={20} />
-              Create Form
+              Criar Form
             </button>
             <button 
               onClick={handleLogout}

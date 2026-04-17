@@ -25,6 +25,7 @@ export default function AnalyticsDashboard() {
   const [filterAnswer, setFilterAnswer] = useState<string>('');
 
   useEffect(() => {
+    document.title = 'Analytics';
     loadForms();
   }, []);
 

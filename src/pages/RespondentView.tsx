@@ -20,6 +20,12 @@ export default function RespondentView() {
   }, [answers]);
 
   useEffect(() => {
+    if (form) {
+      document.title = form.title || 'FormFlow';
+    }
+  }, [form]);
+
+  useEffect(() => {
     if (id) {
       loadData(id);
     }
