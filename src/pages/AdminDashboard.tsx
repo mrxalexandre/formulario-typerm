@@ -90,13 +90,6 @@ export default function AdminDashboard() {
           <h1 className="text-3xl font-bold text-gray-900">Meus Formulários</h1>
           <div className="flex gap-3">
             <Link 
-              to="/"
-              className="flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200 font-medium"
-            >
-              <ExternalLink size={20} />
-              Home Page
-            </Link>
-            <Link 
               to="/admin/analytics"
               className="flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200 font-medium"
             >

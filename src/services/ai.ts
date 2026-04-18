@@ -70,8 +70,7 @@ export async function generateFormFromPrompt(prompt: string): Promise<{ form: Pa
       admin_email: '',
       auto_advance: true,
       hide_browser_ui: false,
-    },
-    is_active: false
+    }
   };
 
   const questions: Partial<Question>[] = (data.questions || []).map((q: any, index: number) => ({
