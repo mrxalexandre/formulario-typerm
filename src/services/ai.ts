@@ -1,9 +1,21 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Form, Question } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+let aiClient: GoogleGenAI | null = null;
+
+function getAIClient(): GoogleGenAI {
+  if (!aiClient) {
+    const key = process.env.GEMINI_API_KEY;
+    if (!key) {
+      throw new Error("A chave da API Gemini (GEMINI_API_KEY) não está configurada.");
+    }
+    aiClient = new GoogleGenAI({ apiKey: key });
+  }
+  return aiClient;
+}
 
 export async function generateFormFromPrompt(prompt: string): Promise<{ form: Partial<Form>, questions: Partial<Question>[] }> {
+  const ai = getAIClient();
   const response = await ai.models.generateContent({
     model: "gemini-3.1-pro-preview",
     contents: `Create a form based on the following request: "${prompt}". 
