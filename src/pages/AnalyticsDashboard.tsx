@@ -181,7 +181,7 @@ export default function AnalyticsDashboard() {
     <div className="min-h-screen bg-gray-50 p-8 font-sans">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
-          <Link to="/admin" className="p-2 hover:bg-gray-200 rounded-full transition-colors">
+          <Link to="/" className="p-2 hover:bg-gray-200 rounded-full transition-colors">
             <ArrowLeft size={24} />
           </Link>
           <div>

@@ -34,7 +34,7 @@ export default function AIGeneratorModal({ isOpen, onClose }: AIGeneratorModalPr
       
       // 4. Navigate to the editor
       onClose();
-      navigate(`/admin/form/${createdForm.id}`);
+      navigate(`/form/${createdForm.id}`);
     } catch (error) {
       console.error("Error generating form:", error);
       alert("Failed to generate form. Please try again.");

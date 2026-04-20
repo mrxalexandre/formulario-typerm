@@ -77,7 +77,7 @@ export default function ResponsesDashboard() {
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-8 print:mb-4">
           <div className="flex items-center gap-4">
-            <Link to="/admin" className="p-2 hover:bg-gray-200 rounded-full transition-colors print:hidden">
+            <Link to="/" className="p-2 hover:bg-gray-200 rounded-full transition-colors print:hidden">
               <ArrowLeft size={24} />
             </Link>
             <div>
