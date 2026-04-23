@@ -46,6 +46,7 @@ export default function AdminDashboard() {
           admin_email: '',
           auto_advance: true,
           hide_browser_ui: false,
+          is_closed: false,
         }
       });
       setIsCreateModalOpen(false);

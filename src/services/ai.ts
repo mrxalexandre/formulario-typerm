@@ -82,6 +82,7 @@ export async function generateFormFromPrompt(prompt: string): Promise<{ form: Pa
       admin_email: '',
       auto_advance: true,
       hide_browser_ui: false,
+      is_closed: false,
     }
   };
 

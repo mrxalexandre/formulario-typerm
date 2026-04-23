@@ -17,6 +17,7 @@ export interface FormSettings {
   admin_email: string;
   auto_advance: boolean;
   hide_browser_ui: boolean;
+  is_closed?: boolean;
 }
 
 export interface Form {

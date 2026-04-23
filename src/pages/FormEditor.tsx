@@ -411,6 +411,21 @@ export default function FormEditor() {
             </div>
             <div className="flex items-center justify-between py-2 border-b border-gray-100">
               <div>
+                <h4 className="text-sm font-medium text-gray-900">Encerrar Respostas</h4>
+                <p className="text-xs text-gray-500">Fechar o formulário para não receber mais respostas.</p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  checked={form.settings.is_closed || false}
+                  onChange={e => setForm({...form, settings: {...form.settings, is_closed: e.target.checked}})}
+                  className="sr-only peer" 
+                />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+              </label>
+            </div>
+            <div className="flex items-center justify-between py-2 border-b border-gray-100">
+              <div>
                 <h4 className="text-sm font-medium text-gray-900">Auto-advance</h4>
                 <p className="text-xs text-gray-500">Automatically move to next question on multiple choice selection.</p>
               </div>

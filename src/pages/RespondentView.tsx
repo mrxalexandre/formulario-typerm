@@ -117,6 +117,40 @@ export default function RespondentView() {
     }),
   };
 
+  if (form && form.settings.is_closed) {
+    return (
+      <div 
+        className="min-h-screen flex items-center justify-center p-6"
+        style={{ 
+          ...(form.settings.bg_gradient.includes('url(') || form.settings.bg_gradient.includes('gradient(')
+            ? {
+                backgroundImage: form.settings.bg_gradient,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+              }
+            : {
+                backgroundColor: form.settings.bg_gradient
+              }
+          ),
+          fontFamily: form.settings.font_family,
+          color: '#fff'
+        }}
+      >
+        <motion.div 
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="text-center bg-black/40 p-10 rounded-2xl backdrop-blur-md max-w-md"
+        >
+          <h1 className="text-3xl font-bold mb-4">Formulário Encerrado</h1>
+          <p className="text-lg opacity-80">
+            Este formulário não está mais aceitando novas respostas no momento.
+          </p>
+        </motion.div>
+      </div>
+    );
+  }
+
   if (submitted) {
     return (
       <div 

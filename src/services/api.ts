@@ -3,60 +3,54 @@ import { Question, Form } from '../types';
 const BASE_URL = 'https://x8ki-letl-twmt.n7.xano.io/api:6qBHg_Bm';
 
 class RateLimiter {
-  private tokens: number;
-  private lastRefill: number;
-  private maxTokens: number;
-  private refillRate: number; // tokens per ms
+  private requestTimestamps: number[] = [];
+  private limit: number;
+  private windowMs: number;
   private queue: (() => void)[] = [];
+  private isProcessing = false;
 
-  constructor(maxTokens: number, refillRateMs: number) {
-    this.maxTokens = maxTokens;
-    this.tokens = maxTokens;
-    this.lastRefill = Date.now();
-    this.refillRate = maxTokens / refillRateMs;
+  constructor(limit: number, windowMs: number) {
+    this.limit = limit;
+    this.windowMs = windowMs;
   }
 
   async acquire(): Promise<void> {
-    this.refill();
-    
-    if (this.tokens >= 1) {
-      this.tokens -= 1;
-      return Promise.resolve();
-    }
-
     return new Promise(resolve => {
       this.queue.push(resolve);
       this.processQueue();
     });
   }
 
-  private refill() {
-    const now = Date.now();
-    const elapsed = now - this.lastRefill;
-    this.tokens = Math.min(this.maxTokens, this.tokens + elapsed * this.refillRate);
-    this.lastRefill = now;
-  }
-
-  private processQueue() {
-    if (this.queue.length === 0) return;
+  private async processQueue() {
+    if (this.isProcessing) return;
+    this.isProcessing = true;
     
-    this.refill();
-    if (this.tokens >= 1) {
-      this.tokens -= 1;
-      const resolve = this.queue.shift();
-      if (resolve) resolve();
-      if (this.queue.length > 0) {
-        this.processQueue();
+    while (this.queue.length > 0) {
+      const now = Date.now();
+      // Remove timestamps outside the sliding window
+      this.requestTimestamps = this.requestTimestamps.filter(t => now - t < this.windowMs);
+      
+      if (this.requestTimestamps.length < this.limit) {
+        const resolve = this.queue.shift();
+        if (resolve) {
+          this.requestTimestamps.push(Date.now());
+          resolve();
+        }
+      } else {
+        // Wait until the oldest request falls out of the window
+        const oldest = this.requestTimestamps[0];
+        const timeToWait = this.windowMs - (now - oldest);
+        await new Promise(r => setTimeout(r, timeToWait + 100)); // +100ms cushion
       }
-    } else {
-      const timeToWait = (1 - this.tokens) / this.refillRate;
-      setTimeout(() => this.processQueue(), timeToWait);
     }
+    
+    this.isProcessing = false;
   }
 }
 
-// Xano free plan limit: 10 requests per 20 seconds
-const apiRateLimiter = new RateLimiter(10, 20000);
+// Xano free plan limit: 10 requests per 20 seconds. 
+// We use 9 requests per 21 seconds to be completely safe against network jitter.
+const apiRateLimiter = new RateLimiter(9, 21000); 
 
 async function fetchWithRetry(url: string, options?: RequestInit, retries = 5, backoff = 3000): Promise<Response> {
   await apiRateLimiter.acquire();
@@ -64,9 +58,10 @@ async function fetchWithRetry(url: string, options?: RequestInit, retries = 5, b
   try {
     const res = await fetch(url, options);
     if (res.status === 429 && retries > 0) {
-      console.warn(`Rate limited (429). Retrying in ${backoff}ms...`);
-      await new Promise(resolve => setTimeout(resolve, backoff));
-      return fetchWithRetry(url, options, retries - 1, backoff * 1.5);
+      console.warn(`Rate limited (429). Waiting for sliding window to clear...`);
+      // Xano limits are per 20 seconds. If we hit it, wait 21s to be safe.
+      await new Promise(resolve => setTimeout(resolve, 21000));
+      return fetchWithRetry(url, options, retries - 1, backoff);
     }
     return res;
   } catch (error) {
